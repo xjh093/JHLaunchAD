@@ -18,15 +18,18 @@
 
 - (void)xx_get_ad
 {
+    JHLaunchAD *launchAD = [[JHLaunchAD alloc] init];
+    launchAD.delegate = self;
+    [launchAD jh_show];
+            
     [RequestManager getAD:nil success:^(id responseObject) {
         if (CODE == 1) {
-            JHLaunchAD *launchAD = [[JHLaunchAD alloc] init];
-            launchAD.delegate = self;
-            [launchAD jh_show];
             launchAD.dic = responseObject[@"d"];
+        }else{
+            [launchAD jh_hide];
         }
     } faild:^(NSError *error) {
-        
+        [launchAD jh_hide];
     }];
 }
 
